@@ -13,6 +13,7 @@ services:
       - "5433:5432"
   keycloak:
     image: quay.io/keycloak/keycloak:21.1
+    hostname: localhost
     environment:
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
@@ -40,3 +41,16 @@ services:
       REACT_APP_KEYCLOAK_URL: http://localhost:8080
       REACT_APP_KEYCLOAK_REALM: reports-realm
       REACT_APP_KEYCLOAK_CLIENT_ID: reports-frontend
+    depends_on:
+      - keycloak
+
+  api:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      KEYCLOAK_SERVER_URL: "http://keycloak:8080/"
+    depends_on:
+      - keycloak
