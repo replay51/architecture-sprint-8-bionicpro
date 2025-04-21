@@ -20,7 +20,7 @@ const keycloakInitOptions = {
 
 const App: React.FC = () => {
   return (
-    <ReactKeycloakProvider authClient={keycloak}, initOptions={keycloakInitOptions}>
+    <ReactKeycloakProvider authClient={keycloak} initOptions={keycloakInitOptions}>
       <div className="App">
         <ReportPage />
       </div>
